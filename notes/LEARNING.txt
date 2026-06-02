@@ -1,0 +1,463 @@
+========================
+STEP 1 — PYTHON BASICS
+========================
+
+VARIABLES
+- Used to store data
+Example:
+name = "Shahzad"
+age = 22
+
+
+INPUT
+- Takes input from user (always string by default)
+Example:
+name = input("Enter name: ")
+
+
+CONDITIONS (if/else)
+- Used for decision making
+
+if age > 18:
+    print("Adult")
+else:
+    print("Minor")
+
+
+LOOPS
+
+FOR LOOP
+- Used for iterating over sequences
+
+for i in range(5):
+    print(i)
+
+WHILE LOOP
+- Runs until condition becomes false
+
+while True:
+    break
+
+
+FUNCTIONS
+- Reusable block of code
+
+def greet():
+    print("Hello")
+
+greet()
+
+
+LISTS
+- Ordered collection of items
+
+items = [1, 2, 3]
+
+
+DICTIONARIES
+- Key-value storage
+
+user = {
+    "name": "Shahzad"
+}
+
+Access:
+user["name"]
+
+
+STRINGS
+- Text data type
+
+Useful methods:
+.lower()
+.upper()
+.split()
+.strip()
+
+
+FILE HANDLING
+
+WRITE FILE:
+open("file.txt", "w")
+
+READ FILE:
+open("file.txt", "r")
+
+
+OOP BASICS
+
+class User:
+    def __init__(self, name):
+        self.name = name
+
+u = User("Shahzad")
+
+
+VIRTUAL ENVIRONMENT
+
+Create:
+python -m venv env
+
+Activate (Windows):
+env\Scripts\activate
+
+
+REQUESTS LIBRARY
+
+Install:
+pip install requests
+
+GET:
+requests.get(url)
+
+POST:
+requests.post(url, json=data)
+
+
+PROJECT — AI COMMAND TOOL
+
+Flow:
+Input → Process → API Call → Output
+
+Commands:
+input
+summarize
+quote
+show
+exit
+
+Skills used:
+- functions
+- loops
+- dictionaries
+- API calls
+- exception handling
+
+
+========================
+STEP 2 — APIs (IMPORTANT)
+========================
+
+WHAT IS API
+- API allows communication between two systems
+
+Flow:
+User → Python → API → Server → JSON → Python Output
+
+
+HTTP METHODS
+
+GET:
+- Used to receive data
+
+POST:
+- Used to send data
+
+
+JSON
+- Lightweight data format
+
+Example:
+{
+    "name": "Shahzad"
+}
+
+Python:
+data = response.json()
+
+
+HEADERS
+- Extra information sent with request
+
+Examples:
+- User-Agent
+- Accept
+- Authorization
+
+
+USER-AGENT
+- Identifies client making request
+Example:
+Python requests / Browser
+
+
+ACCEPT HEADER
+- Tells server response format needed
+Example:
+application/json
+
+
+AUTHENTICATION (AUTH)
+- Verifies user identity
+
+Flow:
+User → Credentials → Server → Database → Verified
+
+Authentication = Who you are
+Authorization = What you can do
+
+
+JSON PARSING
+
+Example:
+data = response.json()
+temp = data["current_weather"]["temperature"]
+
+
+API DEBUGGING CHECKLIST
+- Check internet
+- Check URL
+- Check response status code
+- Check JSON structure
+- Check timeout
+
+
+=========================
+🚀 STEP 3 — FASTAPI BACKEND
+=========================
+🎯 Goal
+
+Learn backend development using FastAPI and build working APIs.
+
+🔹 WHAT IS FASTAPI?
+
+FastAPI is a Python framework used to build APIs (backend services).
+
+It helps to:
+
+Handle HTTP requests (GET, POST)
+Validate input data
+Build backend systems
+Connect AI models with APIs
+🔹 HTTP METHODS
+GET → Fetch data
+/user/1
+POST → Send data
+{
+  "name": "Ali",
+  "age": 22
+}
+🔹 PATH PARAMETERS
+
+Dynamic URL values.
+
+@app.get("/user/{user_id}")
+def get_user(user_id: int):
+    return {"user_id": user_id}
+
+✔ Used for dynamic routes
+✔ Example: /user/10
+
+🔹 QUERY PARAMETERS
+
+Used for filtering data.
+
+@app.get("/search")
+def search(name: str = None, age: int = None):
+    return {"name": name, "age": age}
+
+Example:
+
+/search?name=Ali&age=22
+
+✔ Used for optional filters
+
+🔹 REQUEST BODY (IMPORTANT)
+
+Used to send JSON data in POST requests.
+
+from pydantic import BaseModel
+
+class User(BaseModel):
+    name: str
+    age: int
+
+@app.post("/create-user")
+def create_user(user: User):
+    return user
+
+✔ Used in POST APIs
+✔ FastAPI validates automatically
+
+🔹 PYDANTIC MODEL
+
+Used for validation and structure.
+
+class Resume(BaseModel):
+    resume_text: str
+
+✔ Ensures correct input format
+
+🔹 FASTAPI DOCS
+http://127.0.0.1:8000/docs
+
+✔ Swagger UI
+✔ Test APIs easily
+
+🔹 FILE UPLOAD (PDF)
+from fastapi import File, UploadFile
+from pypdf import PdfReader
+
+@app.post("/upload-pdf")
+async def upload_pdf(file: UploadFile = File(...)):
+    reader = PdfReader(file.file)
+    text = ""
+
+    for page in reader.pages:
+        text += page.extract_text()
+
+    return {"text": text[:1000]}
+
+✔ Reads PDF files
+✔ Extracts text
+
+=========================
+🤖 STEP 4 — LLM + AI APPS
+=========================
+🎯 Goal
+
+Build AI-powered applications using LLM APIs.
+
+🔹 WHAT IS A PROMPT?
+
+Prompt = instruction given to AI model.
+
+Example:
+
+Explain FastAPI in simple words
+
+✔ Better prompt = better output
+
+🔹 PROMPT STRUCTURE
+Task + Context + Format + Constraints
+
+Example:
+
+Explain FastAPI in 5 bullet points for beginners.
+🔹 CONTEXT
+
+Context = extra information given to AI.
+
+Example:
+
+Context: I am a beginner in Python.
+Question: What should I learn next?
+🔹 EMBEDDINGS (BASIC IDEA)
+
+Embedding = converting text into numbers so AI understands similarity.
+
+✔ Used in search and RAG systems
+
+🔹 FUNCTION CALLING (CONCEPT)
+
+AI can trigger functions instead of only replying.
+
+Example:
+User → “Get weather”
+AI → calls function get_weather()
+
+🔹 RAG (RETRIEVAL AUGMENTED GENERATION)
+
+Used in PDF chatbot.
+
+Flow:
+
+PDF → Extract Text → Send to AI → Get Answer
+🔹 GROQ / LLM API CALL
+from groq import Groq
+
+client = Groq(api_key="YOUR_KEY")
+
+response = client.chat.completions.create(
+    model="llama-3.1-8b-instant",
+    messages=[
+        {"role": "system", "content": "You are helpful assistant"},
+        {"role": "user", "content": "Explain FastAPI"}
+    ]
+)
+
+print(response.choices[0].message.content)
+🔹 FASTAPI + AI ENDPOINT
+@app.post("/ask-ai")
+def ask_ai(data: Question):
+
+    response = client.chat.completions.create(
+        model="llama-3.1-8b-instant",
+        messages=[
+            {"role": "system", "content": "You are helpful assistant"},
+            {"role": "user", "content": data.question}
+        ]
+    )
+
+    return {"answer": response.choices[0].message.content}
+🔹 PDF CHATBOT (RAG SYSTEM)
+
+Flow:
+
+PDF → Extract Text → Store → Question → AI Answer
+🔹 PDF CHATBOT CODE
+pdf_text_storage = ""
+
+@app.post("/upload-pdf")
+async def upload_pdf(file: UploadFile = File(...)):
+    global pdf_text_storage
+
+    reader = PdfReader(file.file)
+    text = ""
+
+    for page in reader.pages:
+        if page.extract_text():
+            text += page.extract_text()
+
+    pdf_text_storage = text
+
+    return {"message": "PDF uploaded", "length": len(text)}
+class PDFQuestion(BaseModel):
+    question: str
+
+
+@app.post("/ask-pdf")
+def ask_pdf(data: PDFQuestion):
+
+    response = client.chat.completions.create(
+        model="llama-3.1-8b-instant",
+        messages=[
+            {
+                "role": "system",
+                "content": "Answer ONLY from PDF content"
+            },
+            {
+                "role": "user",
+                "content": pdf_text_storage + "\n\nQuestion: " + data.question
+            }
+        ]
+    )
+
+    return {"answer": response.choices[0].message.content}
+🔥 FINAL SUMMARY
+STEP 3 (Backend Skills)
+
+✔ FastAPI basics
+✔ APIs (GET/POST)
+✔ Path + Query params
+✔ Request body
+✔ File upload
+✔ Validation
+
+STEP 4 (AI Skills)
+
+✔ Prompt engineering
+✔ LLM API integration
+✔ Context usage
+✔ Embeddings concept
+✔ Function calling concept
+✔ RAG system (PDF chatbot)
+
+🚀 RESULT
+
+You can now build:
+
+APIs
+AI chat systems
+PDF chatbot
+Backend AI services
