@@ -461,3 +461,21 @@ APIs
 AI chat systems
 PDF chatbot
 Backend AI services
+
+
+
+
+Learn Git & GitHub Properly
+
+Many graduates can't.
+
+Learn:
+
+clone
+commit
+push
+pull
+branches
+merge
+
+This alone helps interviews.
